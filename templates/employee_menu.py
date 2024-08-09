@@ -1,11 +1,9 @@
 import views.actions
 import views.login
 import views.validations
-from colorama import Fore
 from templates.banner import banner
 from templates.commons import clean_screen
 from getpass import getpass
-from time import sleep
 
 # Permisos que puede tener un empleado:
 # 1 -> Puede marcar.
@@ -40,36 +38,6 @@ def format_new_employee():
     # Retorna una tupla que contiene los datos del nuevo empleado.
     employee = (dni, first_name, second_name, last_name, second_last_name)
     return employee
-
-
-# Procesa la inhabilitación de un empleado.
-def disable_employee(result, employee_to_disable, dni):
-    if result is None:
-        print(Fore.RED, end='')
-        print(f'El empleado con DNI {employee_to_disable} no existe.')
-        print(Fore.WHITE, end='')
-        sleep(2.5)
-    elif result[2] == 0:
-        print(Fore.RED, end='')
-        print(f'El empleado {result[0]} con DNI {employee_to_disable}'
-              ' ya se encuentra inhabilitado.')
-        print(Fore.WHITE, end='')
-        sleep(2.5)
-    elif result[2] == 1:
-        first_name = result[0].capitalize()
-        last_name = result[1].capitalize()
-        print(Fore.YELLOW, end='')
-        response = input('¿Desea inhabilitar al empleado ' + first_name + ' '
-                         + last_name + ' con DNI ' + employee_to_disable + '? '
-                         'Escriba S o N: ')
-        print(Fore.WHITE, end='')
-
-        response = views.validations.response_disable(response)
-
-        if response == 's' or response == 'S':
-            views.actions.disable_employee(employee_to_disable, dni)
-
-    menu(views.login.logged_employee)
 
 
 # Retorna una lista de acciones que puede realizar un usuario donde cada
@@ -117,11 +85,8 @@ def execute_action(employee_actions, selected_action, dni=None):
                                     ' (8 caracteres): ')
         employee_to_disable = views.validations.dni(employee_to_disable)
 
-        # Resultado de la solicitud de la información del empleado.
-        result = views.actions.employee_information(employee_to_disable)
-
         # Inhabilitación del empleado.
-        disable_employee(result, employee_to_disable, dni)
+        views.actions.disable_employee(employee_to_disable, dni)
     elif do == 4:
         # Solicita una nueva contraseña.
         new_pass = getpass('Ingrese su nueva contraseña: ')
