@@ -1,18 +1,18 @@
-import views.validations as vv
+import views.validations
+from getpass import getpass
 from templates.banner import banner
 from templates.commons import clean_screen
 from views.login import login_employee
 from colorama import Fore
-import getpass
 
 
 # Retorna el DNI y la contraseña ingresada por el usuario.
 def get_dni_pass():
     dni = input('Ingrese su DNI: ')
-    dni = vv.dni(dni)
+    dni = views.validations.dni(dni)
 
-    password = getpass.getpass('Ingrese su contraseña: ')
-    password = vv.password(password)
+    password = getpass('Ingrese su contraseña: ')
+    password = views.validations.password(password)
 
     return dni, password
 
