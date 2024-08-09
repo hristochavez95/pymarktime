@@ -1,4 +1,4 @@
-# PyMarkTime
+# pymarktime
 
 _Programa de consola para marcar entradas y salidas de empleados._
 
@@ -12,4 +12,3 @@ pip install -r requirements.txt
 ```sh
 python main.py
 ```
-
