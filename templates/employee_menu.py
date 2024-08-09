@@ -10,7 +10,7 @@ from getpass import getpass
 # Permisos que puede tener un empleado:
 # 1 -> Puede marcar.
 # 2 -> Puede registrar a un empleado.
-# 3 -> Puede inhabilitar a un empleados.
+# 3 -> Puede inhabilitar a un empleado.
 actions = {
     1: 'Realizar marcación.',
     2: 'Registrar a un empleado.',
