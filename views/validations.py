@@ -1,5 +1,5 @@
-import getpass
-import re
+from getpass import getpass
+from re import match
 from colorama import Fore
 
 
@@ -7,7 +7,7 @@ from colorama import Fore
 # DNI: Compuesto de 8 dígitos.
 def dni(dni):
     pattern = r'^\d{8}$'
-    while not re.match(pattern, dni):
+    while not match(pattern, dni):
         print(Fore.RED + 'SOLO PUEDE CONTENER 8 DIGITOS.' + Fore.WHITE)
         dni = input('Ingrese un DNI válido: ')
 
@@ -18,9 +18,9 @@ def dni(dni):
 # Contraseña: Compuesta de 4 dígitos.
 def password(password):
     pattern = r'^\d{4}$'
-    while not re.match(pattern, password):
+    while not match(pattern, password):
         print(Fore.RED + 'SOLO PUEDE CONTENER 4 DIGITOS.' + Fore.WHITE)
-        password = getpass.getpass('Ingrese una contraseña válida: ')
+        password = getpass('Ingrese una contraseña válida: ')
 
     return password
 
@@ -29,7 +29,7 @@ def password(password):
 # Nombre o apellidos: Solo puede contener letras.
 def validate_name(name, type):
     pattern = r'^[a-zA-Z]+$'
-    while not re.match(pattern, name):
+    while not match(pattern, name):
         print(Fore.RED + 'SOLO PUEDE CONTENER LETRAS.' + Fore.WHITE)
         name = input('Ingrese un ' + type + ': ')
 
@@ -40,7 +40,7 @@ def validate_name(name, type):
 # Segundo nombre: Puede estar vacio o contener solo letras.
 def validate_second_name(name, type):
     pattern = r'^[a-zA-Z]*$'
-    while not re.match(pattern, name):
+    while not match(pattern, name):
         print(Fore.RED + 'SOLO PUEDE CONTENER LETRAS.' + Fore.WHITE)
         name = input('Ingrese un ' + type + ': ')
 

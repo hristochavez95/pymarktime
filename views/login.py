@@ -1,7 +1,7 @@
-from hashlib import sha256
-import templates.login as tl
-import templates.employee_menu as tem
+import templates.login
+import templates.employee_menu
 from models.employees import get_employee
+from hashlib import sha256
 
 # Almacena la información del empleado que inició sesión.
 # Esta información se usa para cuando el usuario tenga que regresar al menú
@@ -43,8 +43,8 @@ def login_employee(dni, password):
 
     # Si retorna a un empleado, invoca al menú de empleados.
     if len(query_result):
-        tem.menu(format_employee(query_result))
+        templates.employee_menu.menu(format_employee(query_result))
     else:
         # Si no retorna ningun resultado vuelve a mostrar el menú de inicio de
         # sesión.
-        tl.login_screen(fail=True)
+        templates.login.login_screen(fail=True)
