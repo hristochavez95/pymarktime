@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from mysql.connector import connect, Error
+from mysql.connector import connect
 
 load_dotenv()
 
@@ -19,8 +19,7 @@ def connect_to_db():
             password=db_password,
             database='pymarktime'
         )
-    except Error:
-        print('Error al conectarse a la BBDD.')
+    except Exception as err:
+        print(f'Error al conectarse a la BBDD.{err}')
 
     return connection
-
