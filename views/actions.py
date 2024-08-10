@@ -82,3 +82,39 @@ def change_pass(dni, new_pass):
     else:
         print(Fore.RED + 'Ocurrio un error al cambiar la contraseña.' + Fore.WHITE)
         sleep(2.5)
+
+
+# Habilitación de un empleado.
+def enable_employee(employee_to_enable, dni):
+    result = employee_information(employee_to_enable)
+    if result is None:
+        print(Fore.RED, end='')
+        print(f'El empleado con DNI {employee_to_enable} no existe.')
+        print(Fore.WHITE, end='')
+        sleep(2.5)
+    elif result[2] == 1:
+        print(Fore.RED, end='')
+        print(f'El empleado {result[0]} con DNI {employee_to_enable}'
+              ' ya se encuentra habilitado.')
+        print(Fore.WHITE, end='')
+        sleep(2.5)
+    elif result[2] == 0:
+        first_name = result[0].capitalize()
+        last_name = result[1].capitalize()
+        print(Fore.YELLOW, end='')
+        response = input('¿Desea habilitar al empleado ' + first_name + ' '
+                         + last_name + ' con DNI ' + employee_to_enable + '? '
+                         'Escriba S o N: ')
+        print(Fore.WHITE, end='')
+
+        response = views.validations.response_disable(response)
+
+        if response == 's' or response == 'S':
+            if models.employees.enable_employee(employee_to_enable, dni):
+                print(Fore.GREEN + 'Empleado habilitado correctamente.' + Fore.WHITE)
+                sleep(1.5)
+            else:
+                print(Fore.RED + 'No se pudo habilitar al empleado.' + Fore.WHITE)
+                sleep(2.5)
+
+    templates.employee_menu.menu(views.login.logged_employee)
