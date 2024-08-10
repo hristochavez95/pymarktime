@@ -136,6 +136,31 @@ def disable_employee(dni_employee_to_disable, dni):
     return success_disabled
 
 
+# Habilita a un empleado.
+def enable_employee(dni_employee_to_enable, dni):
+    # Indica si la inhabilitación se realizó con exito.
+    success_enabled = True
+
+    # Se intenta una conexión con la BBDD.
+    connection = connect_to_db()
+
+    try:
+        cs = connection.cursor()
+        stored_proc = 'enable_employee'
+        parameters = (dni_employee_to_enable, dni)
+        cs.callproc(stored_proc, parameters)
+        connection.commit()
+    except Exception as err:
+        success_enabled = False
+        print(f'Ocurrio un error => {err}')
+        connection.rollback()
+
+    cs.close()
+    connection.close()
+
+    return success_enabled
+
+
 # Cambia la contraseña de un empleado.
 def change_pass(dni, password):
     # Indica si el cambio de contraseña se hizo con exito.

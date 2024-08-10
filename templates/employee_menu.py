@@ -9,12 +9,14 @@ from getpass import getpass
 # 1 -> Puede marcar.
 # 2 -> Puede registrar a un empleado.
 # 3 -> Puede inhabilitar a un empleado.
+# 4 -> Puede habilitar a un empleado.
 actions = {
     1: 'Realizar marcación.',
     2: 'Registrar a un empleado.',
     3: 'Inhabilitar a un empleado.',
-    4: 'Cambiar contraseña.',
-    5: 'Salir del sistema.'
+    4: 'Habilitar a un empleado.',
+    5: 'Cambiar contraseña.',
+    6: 'Salir del sistema.'
 }
 
 
@@ -54,12 +56,12 @@ def get_employee_actions(employee_permissions):
         if id_action in employee_permissions:
             employee_actions.append((order, id_action, description))
             order += 1
-    
+
     # Agrega la opción para cambiar la contraseña.
-    employee_actions.append((order, 4, actions[4]))
+    employee_actions.append((order, 5, actions[5]))
 
     # Agrega una opción para salir del sistema.
-    employee_actions.append((order+1, 5, actions[5]))
+    employee_actions.append((order+1, 6, actions[6]))
 
     return employee_actions
 
@@ -88,6 +90,13 @@ def execute_action(employee_actions, selected_action, dni=None):
         # Inhabilitación del empleado.
         views.actions.disable_employee(employee_to_disable, dni)
     elif do == 4:
+        # Solicita el dni del empleado a habilitar.
+        employee_to_enable = input('Ingrese el DNI del empleado (8 caracteres): ')
+        employee_to_enable = views.validations.dni(employee_to_enable)
+
+        # Habilitación del empleado.
+        views.actions.enable_employee(employee_to_enable, dni)
+    elif do == 5:
         # Solicita una nueva contraseña.
         new_pass = getpass('Ingrese su nueva contraseña: ')
         new_pass = views.validations.password(new_pass)
@@ -111,7 +120,7 @@ def execute_action(employee_actions, selected_action, dni=None):
             successfull_change = views.validations.equal_password(new_pass, repeat_pass)
 
         views.actions.change_pass(dni, new_pass)
-    elif do == 5:
+    elif do == 6:
         exit()
 
 
