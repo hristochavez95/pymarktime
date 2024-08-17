@@ -9,12 +9,11 @@ from colorama import Fore
 def create_marktime(dni, marked_by):
     if models.employees.create_marktime(dni, marked_by):
         print(Fore.GREEN + 'Marcación realizada correctamente.' + Fore.WHITE)
-        sleep(1.5)
     else:
         print(Fore.RED + 'Ocurrio un error al realizar la marcación. Vuelva '
                          'a intentarlo' + Fore.WHITE)
-        sleep(2.5)
 
+    sleep(1.5)
     # Redirección al menú de empleados.
     templates.employee_menu.menu(views.login.logged_employee)
 
@@ -23,12 +22,11 @@ def create_marktime(dni, marked_by):
 def create_employee(employee_info):
     if models.employees.create_employee(employee_info):
         print(Fore.GREEN + 'Empleado registrado correctamente.' + Fore.WHITE)
-        sleep(1.5)
     else:
         print(Fore.RED + 'Ocurrio un error al registrar al empleado. Vuelva a '
                          'intentarlo' + Fore.WHITE)
-        sleep(2.5)
 
+    sleep(1.5)
     # Redirección al menú de empleados.
     templates.employee_menu.menu(views.login.logged_employee)
 
@@ -45,13 +43,11 @@ def disable_employee(employee_to_disable, dni):
         print(Fore.RED, end='')
         print(f'El empleado con DNI {employee_to_disable} no existe.')
         print(Fore.WHITE, end='')
-        sleep(2.5)
     elif result[2] == 0:
         print(Fore.RED, end='')
         print(f'El empleado {result[0]} con DNI {employee_to_disable}'
               ' ya se encuentra inhabilitado.')
         print(Fore.WHITE, end='')
-        sleep(2.5)
     elif result[2] == 1:
         first_name = result[0].capitalize()
         last_name = result[1].capitalize()
@@ -66,11 +62,10 @@ def disable_employee(employee_to_disable, dni):
         if response == 's' or response == 'S':
             if models.employees.disable_employee(employee_to_disable, dni):
                 print(Fore.GREEN + 'Empleado inhabilitado correctamente.' + Fore.WHITE)
-                sleep(1.5)
             else:
                 print(Fore.RED + 'No se pudo inhabilitar al empleado.' + Fore.WHITE)
-                sleep(2.5)
 
+    sleep(1.5)
     templates.employee_menu.menu(views.login.logged_employee)
 
 
@@ -78,10 +73,10 @@ def disable_employee(employee_to_disable, dni):
 def change_pass(dni, new_pass):
     if models.employees.change_pass(dni, new_pass):
         print(Fore.GREEN + 'Contraseña cambiada correctamente.' + Fore.WHITE)
-        sleep(1.5)
     else:
         print(Fore.RED + 'Ocurrio un error al cambiar la contraseña.' + Fore.WHITE)
-        sleep(2.5)
+
+    sleep(1.5)
 
 
 # Habilitación de un empleado.
@@ -91,13 +86,11 @@ def enable_employee(employee_to_enable, dni):
         print(Fore.RED, end='')
         print(f'El empleado con DNI {employee_to_enable} no existe.')
         print(Fore.WHITE, end='')
-        sleep(2.5)
     elif result[2] == 1:
         print(Fore.RED, end='')
         print(f'El empleado {result[0]} con DNI {employee_to_enable}'
               ' ya se encuentra habilitado.')
         print(Fore.WHITE, end='')
-        sleep(2.5)
     elif result[2] == 0:
         first_name = result[0].capitalize()
         last_name = result[1].capitalize()
@@ -112,9 +105,8 @@ def enable_employee(employee_to_enable, dni):
         if response == 's' or response == 'S':
             if models.employees.enable_employee(employee_to_enable, dni):
                 print(Fore.GREEN + 'Empleado habilitado correctamente.' + Fore.WHITE)
-                sleep(1.5)
             else:
                 print(Fore.RED + 'No se pudo habilitar al empleado.' + Fore.WHITE)
-                sleep(2.5)
 
+    sleep(1.5)
     templates.employee_menu.menu(views.login.logged_employee)
