@@ -7,11 +7,19 @@ from colorama import Fore
 
 # Envia los datos para realizar la marcación de un empleado.
 def create_marktime(dni, marked_by):
-    if models.employees.create_marktime(dni, marked_by):
+    # Indica si la marcación se hizo exitosamente y un código de error de
+    # existirlo.
+    success_marking, sql_code = models.employees.create_marktime(dni, marked_by)
+
+    if success_marking:
         print(Fore.GREEN + 'Marcación realizada correctamente.' + Fore.WHITE)
     else:
-        print(Fore.RED + 'Ocurrio un error al realizar la marcación. Vuelva '
-                         'a intentarlo' + Fore.WHITE)
+        if sql_code == '45000':
+            print(Fore.YELLOW + 'Debe de esperar al menos 30 minutos antes de '
+                  'hacer una nueva marcación.' + Fore.WHITE)
+        else:
+            print(Fore.RED + 'Ocurrio un error al realizar la marcación. ' +
+                  'Vuelva a intentarlo' + Fore.WHITE)
 
     sleep(1.5)
     # Redirección al menú de empleados.

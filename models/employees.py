@@ -1,5 +1,5 @@
 from models.connection import connect_to_db
-from mysql.connector import errors
+from mysql.connector import Error
 
 
 # Intenta realizar la marcacioń de un empleado.
@@ -10,6 +10,10 @@ def create_marktime(dni, marked_by):
     # Indica si la marcación se realizó con exito.
     success_marking = True
 
+    # Código de error si aún no pasa al menos 30 minutos antes de una nueva 
+    # marcación.
+    sql_code = ''
+
     # Se intenta una conexión con la BBDD.
     connection = connect_to_db()
 
@@ -19,15 +23,15 @@ def create_marktime(dni, marked_by):
         parameters = (dni, marked_by)
         cs.callproc(stored_proc, parameters)
         connection.commit()
-    except Exception as err:
+    except Error as err:
         success_marking = False
-        print(f'Ocurrio un error => {err}')
+        sql_code = err.sqlstate
         connection.rollback()
 
     cs.close()
     connection.close()
 
-    return success_marking
+    return success_marking, sql_code
 
 
 # Intenta iniciar la sesión de un empleado.
