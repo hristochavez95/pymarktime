@@ -1,6 +1,6 @@
 # pymarktime
 
-_Programa de consola para marcar entradas y salidas de empleados._
+_Programa portable de consola para marcar entradas y salidas de empleados._
 
 <img src="https://i.ibb.co/7NH4Zc0/pythonmarktime.png" alt="pythonmarktime" border="0" width="100">
 
